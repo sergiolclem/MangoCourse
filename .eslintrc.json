@@ -1,6 +1,6 @@
 {
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint/tslint"
   ],
   "extends": "standard-with-typescript",
   "parserOptions": {
