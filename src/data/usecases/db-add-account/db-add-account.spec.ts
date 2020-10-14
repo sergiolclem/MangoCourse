@@ -11,11 +11,7 @@ const makeSut = (): SutTypes => {
   const encrypterStub = makeEncrypter()
   const addAccountRepositoryStub = makeAddAccountRepository()
   const sut = new DbAddAccount(encrypterStub, addAccountRepositoryStub)
-  return {
-    sut,
-    encrypterStub,
-    addAccountRepositoryStub
-  }
+  return { sut, encrypterStub, addAccountRepositoryStub }
 }
 
 const makeEncrypter = (): Encrypter => {
