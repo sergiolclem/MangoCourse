@@ -18,7 +18,7 @@ export class LoginController implements Controller {
     if (!password) {
       return badRequest(new MissingParamError('password'))
     }
-    const isValid = this.emailValidator.isValid(httpRequest.body.email)
+    const isValid = this.emailValidator.isValid(email)
     if (!isValid) {
       return badRequest(new InvalidParamError('email'))
     }
