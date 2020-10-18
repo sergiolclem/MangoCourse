@@ -98,4 +98,12 @@ describe('Login Controller', () => {
     await sut.handle(makeFakeRequest())
     expect(authSpy).toHaveBeenCalledWith<[string, string]>(httRequest.body.email, httRequest.body.password)
   })
+
+  test('Should return token if login succed', async () => {
+    const { sut, authenticationStub } = makeSut()
+    const authSpy = jest.spyOn(authenticationStub, 'auth')
+    const httRequest = makeFakeRequest()
+    await sut.handle(makeFakeRequest())
+    expect(authSpy).toHaveBeenCalledWith<[string, string]>(httRequest.body.email, httRequest.body.password)
+  })
 })
