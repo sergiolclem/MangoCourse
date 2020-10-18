@@ -1,5 +1,6 @@
+import { Authorization } from '../../../domain/usecases/authentication'
 import { InvalidParamError, MissingParamError } from '../../errors'
-import { badRequest, serverError, unauthorized } from '../../helpers/http-helper'
+import { badRequest, ok, serverError, unauthorized } from '../../helpers/http-helper'
 import { EmailValidator, HttpRequest, Authentication } from '../login/login-protocols'
 import { LoginController } from './login'
 
@@ -28,8 +29,8 @@ const makeEmailValidator = (): EmailValidator => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (email: string): Promise<string> {
-      return 'any_token'
+    async auth (email: string): Promise<Authorization> {
+      return { accessToken: 'any_token' }
     }
   }
 
@@ -90,6 +91,15 @@ describe('Login Controller', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
+  test('Should return 500 if Authentication throws', async () => {
+    const { sut, authenticationStub } = makeSut()
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(async () => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
   test('Should call Authentication with correct values', async () => {
     const { sut, authenticationStub } = makeSut()
     const authSpy = jest.spyOn(authenticationStub, 'auth')
@@ -106,10 +116,8 @@ describe('Login Controller', () => {
   })
 
   test('Should return token if login succed', async () => {
-    const { sut, authenticationStub } = makeSut()
-    const authSpy = jest.spyOn(authenticationStub, 'auth')
-    const httRequest = makeFakeRequest()
-    await sut.handle(makeFakeRequest())
-    expect(authSpy).toHaveBeenCalledWith<[string, string]>(httRequest.body.email, httRequest.body.password)
+    const { sut } = makeSut()
+    const authorization = await sut.handle(makeFakeRequest())
+    expect(authorization).toEqual(ok({ accessToken: 'any_token' }))
   })
 })
