@@ -89,14 +89,6 @@ describe('SignUp Controller', () => {
     expect(validationSpy).toHaveBeenLastCalledWith(httpRequest.body)
   })
 
-  test('Should call Validation with correct params', async () => {
-    const { sut, validationStub } = makeSut()
-    const validationSpy = jest.spyOn(validationStub, 'validate')
-    const httpRequest = makeFakeHttpRequest()
-    await sut.handle(httpRequest)
-    expect(validationSpy).toHaveBeenLastCalledWith(httpRequest.body)
-  })
-
   test('Should return 400 if Validation returns an Error', async () => {
     const { sut, validationStub } = makeSut()
     const anyError = new InvalidParamError('any_param')
