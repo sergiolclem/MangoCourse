@@ -1,6 +1,6 @@
 import { Authorization } from '../../../domain/usecases/authentication'
 import { InvalidParamError } from '../../errors'
-import { badRequest, ok, serverError, unauthorized } from '../../helpers/http-helper'
+import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
 import { HttpRequest, Authentication } from '../login/login-protocols'
 import { Validation } from '../signup/signup-protocols'
 import { LoginController } from './login'
