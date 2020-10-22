@@ -3,7 +3,7 @@ import { Authentication, AuthenticationModel } from '../../../domain/usecases/au
 import { HashComparer } from '../../protocols/cryptography/hash-comparer'
 import { TokenGenerator } from '../../protocols/cryptography/token-generator'
 import { LoadAccountByEmailRepository } from '../../protocols/db/load-account-by-email-repository'
-import { UpdateAccessToken } from '../../protocols/db/update-access-token'
+import { UpdateAccessTokenRepository } from '../../protocols/db/update-access-token'
 import { DbAuthentication } from './db-authentication'
 
 interface SutTypes {
@@ -11,7 +11,7 @@ interface SutTypes {
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
   hashComparerStub: HashComparer
   tokenGeneratorStub: TokenGenerator
-  updateAccessTokenStub: UpdateAccessToken
+  updateAccessTokenStub: UpdateAccessTokenRepository
 }
 
 const makeSut = (): SutTypes => {
@@ -62,8 +62,8 @@ const makeTokenGeneratorStub = (): TokenGenerator => {
   return new TokenGeneratorStub()
 }
 
-const makeUpdateAccessTokenStub = (): UpdateAccessToken => {
-  class UpdateAccessTokenStub implements UpdateAccessToken {
+const makeUpdateAccessTokenStub = (): UpdateAccessTokenRepository => {
+  class UpdateAccessTokenStub implements UpdateAccessTokenRepository {
     async update (id: string, token: string): Promise<void> {
 
     }

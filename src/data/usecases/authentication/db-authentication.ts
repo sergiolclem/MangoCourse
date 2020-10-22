@@ -2,19 +2,19 @@ import { Authentication, AuthenticationModel } from '../../../domain/usecases/au
 import { HashComparer } from '../../protocols/cryptography/hash-comparer'
 import { TokenGenerator } from '../../protocols/cryptography/token-generator'
 import { LoadAccountByEmailRepository } from '../../protocols/db/load-account-by-email-repository'
-import { UpdateAccessToken } from '../../protocols/db/update-access-token'
+import { UpdateAccessTokenRepository } from '../../protocols/db/update-access-token'
 
 export class DbAuthentication implements Authentication {
   private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository
   private readonly hashComparer: HashComparer
   private readonly tokenGenerator: TokenGenerator
-  private readonly updateAcessToken: UpdateAccessToken
+  private readonly updateAcessToken: UpdateAccessTokenRepository
 
   constructor (
     loadAccountByEmailRepository: LoadAccountByEmailRepository,
     hashComparer: HashComparer,
     tokenGeneratorStub: TokenGenerator,
-    updateAcessToken: UpdateAccessToken
+    updateAcessToken: UpdateAccessTokenRepository
   ) {
     this.loadAccountByEmailRepository = loadAccountByEmailRepository
     this.hashComparer = hashComparer
