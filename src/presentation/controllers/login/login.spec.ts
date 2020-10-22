@@ -1,4 +1,4 @@
-import { AuthenticationModel, AuthenticationResponse } from '../../../domain/usecases/authentication'
+import { AuthenticationModel } from '../../../domain/usecases/authentication'
 import { InvalidParamError } from '../../errors'
 import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
 import { HttpRequest, Authentication } from '../login/login-protocols'
@@ -29,8 +29,8 @@ const makeValidationStub = (): Validation => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<AuthenticationResponse> {
-      return { accessToken: 'any_token' }
+    async auth (authentication: AuthenticationModel): Promise<string> {
+      return 'any_token'
     }
   }
 
@@ -73,7 +73,7 @@ describe('Login Controller', () => {
   test('Should return token if login succed', async () => {
     const { sut } = makeSut()
     const authorization = await sut.handle(makeFakeRequest())
-    expect(authorization).toEqual(ok({ accessToken: 'any_token' }))
+    expect(authorization).toEqual(ok('any_token'))
   })
 
   test('Should call Validation with correct params', async () => {
