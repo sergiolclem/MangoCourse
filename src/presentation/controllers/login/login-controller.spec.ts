@@ -1,9 +1,9 @@
 import { AuthenticationModel } from '../../../domain/usecases/authentication'
 import { InvalidParamError } from '../../errors'
 import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
-import { HttpRequest, Authentication } from '../login/login-protocols'
-import { Validation } from '../signup/signup-protocols'
-import { LoginController } from './login'
+import { HttpRequest, Authentication } from './login-controller-protocols'
+import { Validation } from '../signup/signup-controller-protocols'
+import { LoginController } from './login-controller'
 
 interface SutTypes {
   sut: LoginController
