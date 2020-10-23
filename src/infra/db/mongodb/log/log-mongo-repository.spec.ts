@@ -1,7 +1,7 @@
 import { Collection } from 'mongodb'
 import { LogErrorRepository } from '../../../../data/protocols/db/log-error-repository'
 import { MongoHelper } from '../helpers/mongo-helper'
-import { LogMongoRepository } from './log'
+import { LogMongoRepository } from './log-mongo-repository'
 
 interface SutTypes {
   sut: LogErrorRepository
