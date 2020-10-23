@@ -50,7 +50,7 @@ const makeHashComparerStub = (): HashComparer => {
 
 const makeEncrypterStub = (): Encrypter => {
   class EncrypterStub implements Encrypter {
-    async encrypt (value: string): Promise<string> {
+    encrypt (value: string): string {
       return 'any_token'
     }
   }
