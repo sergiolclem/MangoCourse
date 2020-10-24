@@ -2,6 +2,7 @@ import { Collection } from 'mongodb'
 import request from 'supertest'
 import { MongoHelper } from '../../infra/db/mongodb/helpers/mongo-helper'
 import app from '../config/app'
+import { hash } from 'bcrypt'
 
 let accounCollection: Collection
 
@@ -34,8 +35,21 @@ describe('Login Routes', () => {
   })
 
   describe('POST /login', () => {
-    test('Should return an account on success', async () => {
-
+    test('Should return 200 on login', async () => {
+      const password = await hash('any_password', 12)
+      await accounCollection.insertOne({
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password,
+        passwordConfirmation: 'any_password'
+      })
+      await request(app)
+        .post('/api/login')
+        .send({
+          email: 'any_email@mail.com',
+          password: 'any_password'
+        })
+        .expect(200)
     })
   })
 })
