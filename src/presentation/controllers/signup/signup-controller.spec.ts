@@ -88,9 +88,8 @@ describe('SignUp Controller', () => {
 
   test('Should return 200 the valid data is provided', async () => {
     const { sut } = makeSut()
-    const httpRequest = makeFakeHttpRequest()
-    const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toEqual(ok(makeFakeAccount()))
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
   })
 
   test('Should call Validation with correct params', async () => {
