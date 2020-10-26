@@ -1,5 +1,7 @@
+.vscode
 coverage
 node_modules
 data
 dist
 docs
+.vscode/launch.json
