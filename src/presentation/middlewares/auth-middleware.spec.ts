@@ -1,4 +1,4 @@
-import { forbidden } from '../helpers/http/http-helper'
+import { forbidden, ok } from '../helpers/http/http-helper'
 import { UnauthorizedError } from '../errors'
 import { AuthMiddleware } from './auth-middleware'
 import { HttpRequest } from '../protocols'
@@ -16,7 +16,7 @@ const makeSut = (): SutTypes => {
   return { sut, loadAccountByTokenStub }
 }
 
-const makeAccount = (): AccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'any_id',
   name: 'any_name',
   email: 'any_email@mail.com',
@@ -26,7 +26,7 @@ const makeAccount = (): AccountModel => ({
 const makeLoadAccountByToken = (): LoadAccountByToken => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
     async load (): Promise<AccountModel> {
-      return makeAccount()
+      return makeFakeAccount()
     }
   }
   return new LoadAccountByTokenStub()
@@ -51,10 +51,16 @@ describe('Auth Middleware', () => {
     expect(loadAccountSpy).toHaveBeenCalledWith(httpRequest.headers['x-access-token'])
   })
 
-  test('Should return 403 LoadAccountByToken returns null', async () => {
+  test('Should return 403 if LoadAccountByToken returns null', async () => {
     const { sut, loadAccountByTokenStub } = makeSut()
     jest.spyOn(loadAccountByTokenStub, 'load').mockReturnValueOnce(null)
     const httpResponse = await sut.auth(makeFakeRequest())
     expect(httpResponse).toEqual(forbidden(new UnauthorizedError()))
+  })
+
+  test('Should return 200 if LoadAccountByToken returns an account', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.auth(makeFakeRequest())
+    expect(httpResponse).toEqual(ok({ accountId: makeFakeAccount().id }))
   })
 })
