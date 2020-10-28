@@ -1,9 +1,5 @@
-import { forbidden, ok, serverError } from '../helpers/http/http-helper'
-import { UnauthorizedError } from '../errors'
+import { forbidden, ok, serverError, UnauthorizedError, HttpRequest, LoadAccountByToken, AccountModel } from './auth-middleware-protocols'
 import { AuthMiddleware } from './auth-middleware'
-import { HttpRequest } from '../protocols'
-import { AccountModel } from '../../domain/models/account'
-import { LoadAccountByToken } from '../../domain/usecases/load-account-by-token'
 
 interface SutTypes {
   sut: AuthMiddleware
