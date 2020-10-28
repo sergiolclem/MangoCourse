@@ -1,11 +1,12 @@
 import jwt from 'jsonwebtoken'
-import { Encrypter } from '../../../data/protocols/criptography/token-generator'
+import { Encrypter } from '../../../data/protocols/criptography/encrypter'
 import { JwtAdapter } from './jwt-adapter'
 
 const secret = 'secret'
 jest.mock('jsonwebtoken', () => ({
   sign: (): string => {
-    return 'any_jwt'
+    const a = 'any_jwt'
+    return a
   }
 }))
 
