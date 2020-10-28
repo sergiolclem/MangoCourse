@@ -28,16 +28,18 @@ const makeDecrypter = (): Decrypter => {
 const makeLoadAccountByToken = (): LoadAccountByTokenRepository => {
   class LoadAccountByTokenRepositoryStub implements LoadAccountByTokenRepository {
     async loadByToken (token: string, role?: string): Promise<AccountModel> {
-      return {
-        id: 'any_id',
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password'
-      }
+      return makeFakeAccount()
     }
   }
   return new LoadAccountByTokenRepositoryStub()
 }
+
+const makeFakeAccount = (): AccountModel => ({
+  id: 'any_id',
+  name: 'any_name',
+  email: 'any_email@mail.com',
+  password: 'any_password'
+})
 
 describe('DbLoadAccountByToken UseCase', () => {
   test('Should call Decrypter with correct values', async () => {
@@ -66,5 +68,11 @@ describe('DbLoadAccountByToken UseCase', () => {
     jest.spyOn(loadAccountByTokenStub, 'loadByToken').mockReturnValueOnce(null)
     const account = await sut.load('any_access_token', 'any_role')
     expect(account).toBeNull()
+  })
+
+  test('Should return an account on success', async () => {
+    const { sut } = makeSut()
+    const account = await sut.load('any_access_token', 'any_role')
+    expect(account).toEqual(makeFakeAccount())
   })
 })
