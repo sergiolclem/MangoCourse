@@ -60,7 +60,7 @@ describe('DbLoadAccountByToken UseCase', () => {
     const { sut, loadAccountByTokenStub } = makeSut()
     const loadAccountByTokenSpy = jest.spyOn(loadAccountByTokenStub, 'loadByToken')
     await sut.load('any_access_token', 'any_role')
-    expect(loadAccountByTokenSpy).toHaveBeenCalledWith('any_decrypted_value', 'any_role')
+    expect(loadAccountByTokenSpy).toHaveBeenCalledWith('any_access_token', 'any_role')
   })
 
   test('Should return null if LoadAccountByTokenRepository returns null', async () => {
