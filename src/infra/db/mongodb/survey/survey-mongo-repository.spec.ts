@@ -67,10 +67,27 @@ describe('Account MongoRepository', () => {
       expect(account.password).toBe('any_password')
     })
 
-    test('Should return null if loadByToken fails', async () => {
+    test('Should return an account on loadByToken success with role', async () => {
+      await surveyCollection.insertOne({
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_password',
+        accessToken: 'any_token',
+        role: 'any_role'
+      })
       const { sut } = makeSut()
-      const account = await sut.loadByToken('any_email@mail.com')
-      expect(account).toBeFalsy()
+      const account = await sut.loadByToken('any_token', 'any_role')
+      expect(account).toBeTruthy()
+      expect(account.id).toBeTruthy()
+      expect(account.name).toBe('any_name')
+      expect(account.email).toBe('any_email@mail.com')
+      expect(account.password).toBe('any_password')
+    })
+
+    test('Should return null if loadByToken', async () => {
+      const { sut } = makeSut()
+      const account = await sut.loadByToken('any_token', 'any_role')
+      expect(account).toBeNull()
     })
   })
 })
