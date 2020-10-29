@@ -34,11 +34,11 @@ describe('Login Routes', () => {
   })
 
   describe('POST /surveys', () => {
-    test('Should return 204 on success', async () => {
+    test('Should return 403 on addSurvey without a role', async () => {
       await request(app)
         .post('/api/surveys')
         .send(makeFakeSurvey())
-        .expect(204)
+        .expect(403)
     })
   })
 })
