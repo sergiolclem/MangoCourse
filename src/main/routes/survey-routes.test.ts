@@ -31,13 +31,9 @@ const mockAccessToken = async (): Promise<string> => {
   })
   const id = res.ops[0]._id
   const accessToken = sign({ id }, env.jwtSecret)
-  await accountCollection.updateOne({
-    _id: id
-  }, {
-    $set: {
-      accessToken
-    }
-  })
+  await accountCollection.updateOne(
+    { _id: id },
+    { $set: { accessToken } })
   return accessToken
 }
 
