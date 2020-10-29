@@ -1,6 +1,6 @@
-import { ValidationComposite, RequiredFieldValidation } from '../../../../validation/validators'
-import { Validation } from '../../../../presentation/protocols'
-import { MinimumArraySizeValidation } from '../../../../validation/validators/minimum-answers-validation'
+import { ValidationComposite, RequiredFieldValidation } from '../../../../../validation/validators'
+import { Validation } from '../../../../../presentation/protocols'
+import { MinimumArraySizeValidation } from '../../../../../validation/validators/minimum-answers-validation'
 
 export const makeSurveyValidation = (): ValidationComposite => {
   const validations: Validation[] = []
