@@ -1,0 +1,2 @@
+[![Coverage Status](https://coveralls.io/repos/github/sergiolclem/MangoCourse/badge.svg?branch=master)](https://coveralls.io/github/sergiolclem/MangoCourse?branch=master)
+[![Build Status](https://travis-ci.com/sergiolclem/MangoCourse.svg?branch=master)](https://travis-ci.com/sergiolclem/MangoCourse)
