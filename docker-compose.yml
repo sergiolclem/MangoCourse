@@ -9,7 +9,7 @@ services:
     ports:
       - "27017:27017"
   api:
-    container_name: api-container
+    container_name: api-mango
     image: node:12
     restart: always
     working_dir: /usr/src/clean-node-api

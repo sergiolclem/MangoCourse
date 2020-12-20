@@ -1,7 +1,7 @@
-import { Controller, HttpRequest, Validation, AddSurvey, AddSurveyModel } from './add-survey-controller-protocols'
-import { AddSurveyController } from './add-survey-controller'
+import { MissingParamError } from '@/presentation/errors'
 import { badRequest, noContent, serverError } from '../../../helpers/http/http-helper'
-import { MissingParamError } from '../../../errors'
+import { AddSurveyController } from './add-survey-controller'
+import { AddSurvey, AddSurveyModel, Controller, HttpRequest, Validation } from './add-survey-controller-protocols'
 
 interface SutTypes {
   sut: Controller
